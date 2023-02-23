@@ -161,8 +161,7 @@ class VSDOSPanel {
   }
 
   private _getHtmlForWebview(webview: vscode.Webview, gamePath: string) {
-    // Use a nonce to only allow specific scripts to be run
-
+    console.log("WEBVIEW", webview);
     return `
 			<!DOCTYPE html>
 			<html>
@@ -187,8 +186,8 @@ class VSDOSPanel {
 			
 			<body>
 				<iframe
-				width="1024"
-				height="768"
+				width="100%"
+				height="100%"
 				frameborder="0"
 				src=${gamePath}
 				allowfullscreen
