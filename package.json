@@ -1,7 +1,7 @@
 {
   "name": "vs-dos",
   "description": "VS-DOS - MS-DOS games inside VSCode",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "publisher": "ericson-willians",
   "private": false,
   "license": "MIT",
