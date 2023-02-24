@@ -1,28 +1,21 @@
 import * as vscode from "vscode";
+import * as ia from "ia";
 
 const games = {
-  doom: "https://dos.zone/player/?bundleUrl=https%3A%2F%2Fcdn.dos.zone%2Fcustom%2Fdos%2Fdoom.jsdos?anonymous=1",
-  doom2:
-    "https://dos.zone/player/?bundleUrl=https%3A%2F%2Fcdn.dos.zone%2Fcustom%2Fdos%2Fdoom2.jsdos?anonymous=1",
-  finalDoom:
-    "https://dos.zone/player/?bundleUrl=https%3A%2F%2Fcdn.dos.zone%2Foriginal%2F2X%2F4%2F49ea7e89c84d01ae630772b4d90e37927955522a.jsdos?anonymous=1",
-  ultimateDoom:
-    "https://dos.zone/player/?bundleUrl=https%3A%2F%2Fcdn.dos.zone%2Fcustom%2Fdos%2Fultimate-doom.jsdos?anonymous=1",
-};
 
-let selectedGame: keyof typeof games;
+let selectedGame: typeof games;
 
 export function activate(context: vscode.ExtensionContext) {
-  Object.keys(games).forEach((game: string) => {
-    context.subscriptions.push(
-      vscode.commands.registerCommand(`vsDos.${game}`, () => {
-        VSDOSPanel.createOrShow(
-          context.extensionUri,
-          game as keyof typeof games
-        );
-      })
-    );
-  });
+  context.subscriptions.push(
+    vscode.commands.registerCommand('vsDos.run', (name: string) => {
+      let searchRes = await ia.SearchAPI.get({q:name, fields:["identifier"], page:1});
+      let res = `https://archive.org/download/${searchRes["response"]["docs"][0]}/${await MetadataAPI.get({searchRes["response"]["docs"][0], path:"files/0"}).name}`;
+      VSDOSPanel.createOrShow(
+        context.extensionUri,
+        res
+      );
+    });
+  );
 
   if (vscode.window.registerWebviewPanelSerializer) {
     // Make sure we register a serializer in activation event
