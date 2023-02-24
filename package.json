@@ -27,34 +27,16 @@
     "Other"
   ],
   "activationEvents": [
-    "onWebviewPanel:vsDos.doom",
-    "onWebviewPanel:vsDos.doom2",
-    "onWebviewPanel:vsDos.finalDoom",
-    "onWebviewPanel:vsDos.ultimateDoom"
+    "onWebviewPanel:vsDos.run",
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "vsDos.doom",
-        "title": "Start Doom",
+        "command": "vsDos.run",
+        "title": "Start a DOS game",
         "category": "VS-DOS"
       },
-      {
-        "command": "vsDos.doom2",
-        "title": "Start Doom2",
-        "category": "VS-DOS"
-      },
-      {
-        "command": "vsDos.finalDoom",
-        "title": "Start Final Doom",
-        "category": "VS-DOS"
-      },
-      {
-        "command": "vsDos.ultimateDoom",
-        "title": "Start Ultimate Doom",
-        "category": "VS-DOS"
-      }
     ]
   },
   "scripts": {
