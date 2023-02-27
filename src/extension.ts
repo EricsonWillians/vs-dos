@@ -1,20 +1,19 @@
 import * as vscode from "vscode";
-import * as ia from "ia";
+import * as ia from "./ia.js";
 
-const games = {
 
-let selectedGame: typeof games;
+let selectedGame: any;
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
-    vscode.commands.registerCommand('vsDos.run', (name: string) => {
+    vscode.commands.registerCommand('vsDos.run', async (name: string) => {
       let searchRes = await ia.SearchAPI.get({q:name, fields:["identifier"], page:1});
-      let res = `https://archive.org/download/${searchRes["response"]["docs"][0]}/${await MetadataAPI.get({searchRes["response"]["docs"][0], path:"files/0"}).name}`;
+      let res = `https://archive.org/download/${searchRes["response"]["docs"][0]}/${await ia.MetadataAPI.get({0: searchRes.response.docs[0], path:"files/0"}).name}`;
       VSDOSPanel.createOrShow(
         context.extensionUri,
         res
       );
-    });
+    })
   );
 
   if (vscode.window.registerWebviewPanelSerializer) {
@@ -60,7 +59,7 @@ class VSDOSPanel {
 
   public static createOrShow(
     extensionUri: vscode.Uri,
-    game: keyof typeof games
+    game: string
   ) {
     const column = vscode.window.activeTextEditor
       ? vscode.window.activeTextEditor.viewColumn
@@ -145,11 +144,11 @@ class VSDOSPanel {
     return;
   }
 
-  private _updateVsDos(webview: vscode.Webview, gameName: keyof typeof games) {
-    this._panel.title = gameName;
+  private _updateVsDos(webview: vscode.Webview, gameName: string) {
+    this._panel.title = "DOS game";
     this._panel.webview.html = this._getHtmlForWebview(
       webview,
-      games[gameName]
+      gameName
     );
   }
 

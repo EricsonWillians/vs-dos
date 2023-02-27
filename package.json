@@ -1,7 +1,7 @@
 {
   "name": "vs-dos",
   "description": "VS-DOS - MS-DOS games inside VSCode",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "publisher": "ericson-willians",
   "private": false,
   "license": "MIT",
@@ -27,7 +27,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onWebviewPanel:vsDos.run",
+    "onWebviewPanel:vsDos.run"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -36,7 +36,7 @@
         "command": "vsDos.run",
         "title": "Start a DOS game",
         "category": "VS-DOS"
-      },
+      }
     ]
   },
   "scripts": {
@@ -49,9 +49,15 @@
     "@types/node": "^16.11.7",
     "@types/vscode": "^1.73.0",
     "@types/vscode-webview": "^1.57.0",
+    "@types/xmldom": "^0.1.31",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
     "eslint": "^8.26.0",
     "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "fetch-jsonp": "^1.2.3",
+    "node-fetch": "^3.3.0",
+    "xmldom": "^0.6.0"
   }
 }
