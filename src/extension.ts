@@ -2,13 +2,13 @@ import * as vscode from "vscode";
 import * as ia from "./ia.js";
 
 
-let selectedGame: any;
+let selectedGame: string;
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand('vsDos.run', async (name: string) => {
-      let searchRes = await ia.SearchAPI.get({q:name, fields:["identifier"], page:1});
-      let res = `https://archive.org/download/${searchRes["response"]["docs"][0]}/${await ia.MetadataAPI.get({0: searchRes.response.docs[0], path:"files/0"}).name}`;
+      const searchRes = await ia.SearchAPI.get({q:name, fields:["identifier"], page:1});
+      const res = `https://archive.org/download/${searchRes["response"]["docs"][0]}/${await ia.MetadataAPI.get({0: searchRes.response.docs[0], path:"files/0"}).name}`;
       VSDOSPanel.createOrShow(
         context.extensionUri,
         res
@@ -21,7 +21,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.window.registerWebviewPanelSerializer(VSDOSPanel.viewType, {
       async deserializeWebviewPanel(
         webviewPanel: vscode.WebviewPanel,
-        state: any
+        state: string
       ) {
         console.log(`Got state: ${state}`);
         // Reset the webview options so we use latest uri for `localResourceRoots`.
@@ -101,7 +101,7 @@ class VSDOSPanel {
 
     // Update the content based on view changes
     this._panel.onDidChangeViewState(
-      (e) => {
+      (_e) => {
         if (this._panel.visible) {
           this._update();
         }

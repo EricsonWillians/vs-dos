@@ -1,4 +1,5 @@
 //Copied from https://github.com/rchrd2/iajs/blob/master/src/main.js
+// @ts-nocheck
 
 import fetch from "node-fetch";
 import fetchJsonp from "fetch-jsonp";
